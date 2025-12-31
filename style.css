@@ -1,6 +1,7 @@
 /* ======================================================
    LACE & LEATHER — BASE STYLESHEET
-   Purpose: clean, credible, Stripe-safe digital goods site
+   - Stripe-safe, fast, clean
+   - Uses lace-bg.png as faint fixed texture
    ====================================================== */
 
 :root{
@@ -8,13 +9,11 @@
   --bg-deep:#070a0f;
 
   --panel:#111823;
-  --panel-soft:#0f1620;
 
   --text:#e6eadf;
   --muted:rgba(230,234,223,.70);
   --faint:rgba(230,234,223,.55);
 
-  /* Aged brass / parchment accent */
   --accent:#c6a36a;
   --accent-soft:rgba(198,163,106,.35);
 
@@ -28,9 +27,7 @@
     inset 0 1px 0 rgba(255,255,255,.04);
 }
 
-*{
-  box-sizing:border-box;
-}
+*{ box-sizing:border-box }
 
 html,body{
   margin:0;
@@ -39,6 +36,7 @@ html,body{
 }
 
 body{
+  position:relative;
   font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif;
   color:var(--text);
   background:
@@ -48,19 +46,34 @@ body{
   line-height:1.55;
 }
 
-/* ------------------------------------------------------
-   Layout
------------------------------------------------------- */
+/* Subtle background texture image */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(1200px 600px at 30% -10%, rgba(198,163,106,.08), transparent 55%),
+    radial-gradient(900px 500px at 90% 0%, rgba(198,163,106,.06), transparent 60%),
+    url("./lace-bg.png");
+  background-size: auto, auto, cover;
+  background-position: center, center, center;
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  opacity:.10;               /* keep faint */
+  filter:saturate(.9) contrast(1.05);
+  pointer-events:none;
+  z-index:-1;
+}
 
+a{ color:var(--text); text-decoration:none }
+a:hover{ text-decoration:underline }
+
+/* Layout */
 .wrap{
   width:min(980px, calc(100% - 32px));
   margin:0 auto;
 }
 
-/* ------------------------------------------------------
-   Header
------------------------------------------------------- */
-
+/* Header */
 header.wrap{
   padding:28px 0 18px;
   display:flex;
@@ -76,15 +89,16 @@ header.wrap{
   gap:14px;
 }
 
-.mark{
+.logo{
   width:46px;
   height:46px;
   border-radius:14px;
-  background:
-    radial-gradient(16px 16px at 30% 30%, rgba(255,255,255,.18), transparent 60%),
-    linear-gradient(180deg, rgba(198,163,106,.45), rgba(120,90,48,.25));
-  border:1px solid var(--line);
+  object-fit:cover;
+  border:1px solid rgba(255,255,255,.10);
   box-shadow:var(--shadow);
+  background:rgba(255,255,255,.04);
+  /* If your logo is transparent and looks too dark, uncomment: */
+  /* padding:6px; */
 }
 
 h1{
@@ -100,10 +114,7 @@ h1{
   color:var(--muted);
 }
 
-/* ------------------------------------------------------
-   Navigation
------------------------------------------------------- */
-
+/* Nav */
 .nav{
   display:flex;
   gap:14px;
@@ -118,9 +129,7 @@ h1{
   border:1px solid transparent;
 }
 
-.nav a:hover{
-  color:var(--text);
-}
+.nav a:hover{ color:var(--text) }
 
 .nav a[aria-current="page"]{
   color:var(--text);
@@ -128,17 +137,11 @@ h1{
   background:rgba(255,255,255,.04);
 }
 
-/* ------------------------------------------------------
-   Main Content
------------------------------------------------------- */
-
-main.wrap{
-  padding:8px 0 40px;
-}
+/* Main */
+main.wrap{ padding:8px 0 40px }
 
 .card{
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  background: linear-gradient(180deg, rgba(15,22,32,.92), rgba(12,18,28,.88));
   border:1px solid var(--line);
   border-radius:var(--radius);
   padding:20px 20px;
@@ -153,15 +156,9 @@ main.wrap{
   letter-spacing:.02em;
 }
 
-.card p{
-  margin:10px 0;
-  color:var(--muted);
-}
+.card p{ margin:10px 0; color:var(--muted) }
 
-.card ul{
-  margin:10px 0 0 18px;
-  color:var(--muted);
-}
+.card ul{ margin:10px 0 0 18px; color:var(--muted) }
 
 .grid{
   display:grid;
@@ -170,52 +167,27 @@ main.wrap{
 }
 
 @media (max-width:720px){
-  .grid{
-    grid-template-columns:1fr;
-  }
+  .grid{ grid-template-columns:1fr }
 }
 
-/* ------------------------------------------------------
-   Buttons
------------------------------------------------------- */
-
+/* Buttons */
 .btn{
   display:inline-block;
   padding:11px 16px;
   font-size:14px;
   border-radius:14px;
   border:1px solid var(--accent-soft);
-  background:
-    linear-gradient(180deg, rgba(198,163,106,.28), rgba(120,90,48,.16));
+  background: linear-gradient(180deg, rgba(198,163,106,.28), rgba(120,90,48,.16));
   color:var(--text);
   box-shadow:0 10px 24px rgba(0,0,0,.45);
 }
 
-.btn:hover{
-  filter:brightness(1.06);
-}
+.btn:hover{ filter:brightness(1.06); text-decoration:none }
 
 .btn.ghost{
   background:rgba(255,255,255,.04);
   border-color:var(--line);
 }
-
-/* ------------------------------------------------------
-   Footer & Fine Print
------------------------------------------------------- */
-
-.fine{
-  font-size:12px;
-  color:var(--faint);
-}
-
-.foot{
-  padding-top:12px;
-}
-
-/* ------------------------------------------------------
-   Utility
------------------------------------------------------- */
 
 .ctaRow{
   display:flex;
@@ -224,6 +196,5 @@ main.wrap{
   margin-top:12px;
 }
 
-a:hover{
-  text-decoration:underline;
-}
+.fine{ font-size:12px; color:var(--faint) }
+.foot{ padding-top:12px }
