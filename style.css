@@ -37,7 +37,7 @@ html,body{
 
 body{
   position:relative;
-  font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+  font-family: "Cormorant Garamond", Georgia, Cambria, "Times New Roman", serif;
   color:var(--text);
   background:
     radial-gradient(1200px 600px at 30% -10%, rgba(198,163,106,.08), transparent 55%),
