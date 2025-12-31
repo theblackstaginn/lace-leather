@@ -144,8 +144,8 @@ main.wrap{ padding:8px 0 40px }
   background:
     linear-gradient(
       180deg,
-      rgba(18, 26, 38, .38),
-      rgba(14, 20, 30, .34)
+      rgba(18, 26, 38, .32),
+      rgba(14, 20, 30, .28)
     );
   border:1px solid rgba(255,255,255,.18);
   border-radius:var(--radius);
